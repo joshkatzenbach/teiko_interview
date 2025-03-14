@@ -7,12 +7,18 @@ PYTHON QUESTIONS:
 
         pip3 install pandas
         pip3 install matplotlib
+        pip3 install scipy
 
     - Afterwards, the program can be run with: 
 
         python3 analyze_population.py
 
+    - The resulting csv file can be found in population_analysis.csv after running the program
+        - Program will also generate box plots for the data
+        - Program will also run T-Tests to compare data
+
     - Answers to python questions can be found in python_answers.txt
+
 
 DATABASE QUESTIONS:
 

@@ -1,0 +1,37 @@
+PYTHON SECTION ANSWERS
+
+1. Python csv output is found in population_analysis.csv
+
+2a. Box plots are found in box_plots.png
+
+2b. The most obvious way (but not the best) to compare the frequencies of the two different groups is to compare medians. We could look at both the absolute and relative difference in medians. 
+
+    Absolute difference: Simply subtracting one median from the other
+    Relative difference: Dividing the bigger median by the smaller (gives a better sense of the scale of the change)
+
+
+    GROUP           ABSOLUTE    RELATIVE 
+    b_cell          2.0%        6.9%
+    cd8_t_cell      0.5%        2.5%
+    cd4_t_cell      11.5%       46.0%
+    nk_cell         2.0%        50.0%
+    monocytes       10.0%       125.0%
+
+
+    HOWEVER, this is a very small sample size and the decision to consider a difference significant is very arbitrary. So, the better option would be to use a T-Test to determine if there is asignificant difference between the two groups. This takes into account both the sample size and the standard deviation. 
+
+        p-value: The percentage chance that the populations really are the same and that the variation occured due to random error.
+        a-value: The value chosen beforehand that would indicate that the p-value is low enough to reject the null hypothesis (in this case, that the populations have the same frequency).
+        T-Statistic: How many standard errors the two means are apart. 
+
+    For this particular T-Test, I chose to use an a-value of 0.05. 
+
+    GROUP           P_VALUE     T_STATISTIC
+    b_cell          0.99        .01
+    cd8_t_cell      0.65        .46
+    cd4_t_cell      0.00        4.94
+    nk_cell         0.10        1.85
+    monocytes       0.02        2.90
+
+    Based on our chosen a-value, it was determined that both cd4_t_cells and monocytes were significantly different between responders and non-responders. nk_cells were close to being 
+    considered significant with a p-value of 0.10, but the test was unable to establish the significance in difference. Perhaps with a larger sample size we could come to that conclusion. 

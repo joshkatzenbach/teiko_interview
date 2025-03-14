@@ -6,8 +6,7 @@ DATABASE ANSWERS:
 
 2. What would be some advantages in capturing this information in a database?
 
-    Capturing all of this information is a database is essential so that it can be accessed later quickly and effienciently. By storing thousands of projects in the same database,
-    it become rather trivial to compare trends and analyze data. Using simple queries we do all sort of calculations quickly. This allows us to easily iterate on the current product. 
+    Capturing all of this information is a database is essential so that it can be accessed later quickly and effienciently. By storing thousands of projects in the same database, it become rather trivial to compare trends and analyze data. Using simple queries we do all sort of calculations quickly. This allows us to easily iterate on the current product. 
 
 3. Based on the schema you provide in (1), please write a query to summarize the number of subjects available for each condition.
 

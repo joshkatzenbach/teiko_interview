@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib 
 matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 
 
 # Constants for the file
@@ -26,6 +27,7 @@ def parse_data(population_df) -> pd.DataFrame:
 
     # Iterate through each sample
     for index, row in population_df.iterrows():
+
         # Get Sample ID
         parsed_df.at[index, sample_text] = row['sample']
 
@@ -56,7 +58,9 @@ def analyze_data(population_df):
         non_responders[cell_type] = []
 
 
+    # Iterate through each sample
     for index, row in population_df.iterrows():
+
         # Only use samples that got treatment tr1 and are PBMC
         if row['treatment'] != "tr1" or row['sample_type'] != "PBMC":
             continue
@@ -80,14 +84,26 @@ def plot_data(responders, non_responders):
     fig.suptitle("Treatment 1 Cell Frequencies")
     axes = axes.flatten()
 
+
     # Plot each cell type
+    print("\nT-Test Results between Responders and Non-Responders:")
     for index, cell_type in enumerate(cell_types):
-        axes[index].boxplot([responders[cell_type], non_responders[cell_type]], labels=["Responders", "Non-Responders"])
+
+        # Create BoxPlot
+        axes[index].boxplot([responders[cell_type], non_responders[cell_type]], tick_labels=["Responders", "Non-Responders"])
         axes[index].set_title(cell_type)
         axes[index].set_ylabel("Frequency")
         axes[index].set_ylim([0, .5])
 
+        # Perform T-Test
+        t_statistic, p_value = stats.ttest_ind(responders[cell_type], non_responders[cell_type])
 
+        axes[index].text(.5,-.15,f"p-value: {p_value:.2f}", ha = "center", va="top", transform=axes[index].transAxes, fontsize = 10)
+        axes[index].text(.5,-.25,f"t-statistic: {t_statistic:.2f}", ha = "center", va="top", transform=axes[index].transAxes, fontsize = 10)
+
+        print(f"{cell_type}: \t\t p-value: {p_value:.2f}, \t\tt-statistic: {t_statistic:.2f}")
+        
+    print("")
     # Display the plot
     plt.tight_layout()
     plt.show()
@@ -102,7 +118,7 @@ def main():
     parsed_df = parse_data(population_df)
 
     # Export Data
-    #parsed_df.to_csv("population_analysis.csv", index=False)
+    parsed_df.to_csv("population_analysis.csv", index=False)
 
     # Analyze and Plot Data
     analyze_data(population_df)
