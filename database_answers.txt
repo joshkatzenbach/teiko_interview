@@ -1,0 +1,50 @@
+DATABASE ANSWERS: 
+
+1. Design and provide a database schema.
+
+    Database Schema found in the file: database_schema.png
+
+2. What would be some advantages in capturing this information in a database?
+
+    Capturing all of this information is a database is essential so that it can be accessed later quickly and effienciently. By storing thousands of projects in the same database,
+    it become rather trivial to compare trends and analyze data. Using simple queries we do all sort of calculations quickly. This allows us to easily iterate on the current product. 
+
+3. Based on the schema you provide in (1), please write a query to summarize the number of subjects available for each condition.
+
+    SELECT condition, COUNT(*) 
+    FROM subjects 
+    GROUP BY condition;
+
+4. Please write a query that returns all melanoma PBMC samples at baseline (time_from_treatment_start is 0) from patients who have treatment tr1. 
+
+    SELECT * 
+    FROM samples 
+    JOIN subjects 
+        ON samples.subject_id = subjects.id 
+    WHERE subjects.condition = 'melanoma' 
+        AND samples.time_from_treatment_start = 0
+        AND samples.treatment = 'tr1';
+
+
+5. Please write queries to provide these following further breakdowns for the samples in (4).
+
+    For the following three questions, I'll be inserting the code from above in as a subquery: 
+
+
+    a. How many samples from each project?
+
+        SELECT project_id, COUNT(*)
+        FROM (*CODE FROM ABOVE*) AS previous
+        GROUP BY project_id;
+
+    b. How many responders/non-responders?
+
+        SELECT response, COUNT(*)
+        FROM (*CODE FROM ABOVE*) AS previous
+        GROUP BY response;
+
+    c. How many males, females?
+        
+        SELECT sex, COUNT(*)
+        FROM (*CODE FROM ABOVE*) AS previous
+        GROUIP BY sex;
